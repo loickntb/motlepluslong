@@ -40,7 +40,10 @@ public class main {
         java.util.Arrays.sort(res);
         return res;
     }
-
+    /*
+    * Cette méthode renvoi le dictionnaire dans un tableau de char à deux dimensions
+    *
+    */
 
     public static char[][] getDictionnaire() {
         char[][] res;
@@ -115,19 +118,19 @@ public class main {
         return false;
     }
 
-
+    
     public static void main(String[] args) {
 
-//        char[][] dico = getDictionnaire();
-//        char[] str;
-//        while(true) {
-//            System.out.print("Proposer un mot ou une ligne vide pour passer : ");
-//            str = Terminal.lireString().toUpperCase().toCharArray();
-//            if(motTrouve(str, dico)==true){
-//                System.out.println("Le mot est présent dans le dictionnaire");
-//            }
-//            else System.out.println("Le mot n'est pas présent dans le dictionnaire");
-//        }
+        char[][] dico = getDictionnaire();
+        char[] str;
+        while(true) {
+        System.out.print("Proposer un mot ou une ligne vide pour passer : ");
+        str = Terminal.lireString().toUpperCase().toCharArray();
+        if(motTrouve(str, dico)==true){
+               System.out.println("Le mot est présent dans le dictionnaire");
+           }
+           else System.out.println("Le mot n'est pas présent dans le dictionnaire");
+       }
 
 
     }
