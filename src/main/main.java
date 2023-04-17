@@ -1,3 +1,6 @@
+package src.main;
+import src.Terminal;
+
 public class main {
 
 
@@ -40,11 +43,11 @@ public class main {
         java.util.Arrays.sort(res);
         return res;
     }
-    /*
-    * Cette méthode renvoi le dictionnaire dans un tableau de char à deux dimensions
-    *
-    */
 
+    /**
+     * Retourne un tableau de tableau de caractères ou chaque ligne
+     * correspond à un mot du fichier dico_nfa031.txt
+     */
     public static char[][] getDictionnaire() {
         char[][] res;
         char[][] temp = new char[500000][];
@@ -83,11 +86,11 @@ public class main {
     }
 
     /**
-     * Compare deux tableaux de caracteres
+     * Compare deux tableaux de caractères
      *
-     * @param t1
-     * @param t2
-     * @return
+     * @param t1 (required)
+     * @param t2 (required)
+     * @return boolean
      */
 
     public static boolean eqTabChar(char[] t1, char[] t2) {
@@ -102,35 +105,47 @@ public class main {
     }
 
     /**
-     * Retourne true sur le mot est retrouve dans le dictionnaire
+     * Compare une chaine de caractères
+     * et un tableau de char
      *
-     * @param m
-     * @param dico
+     * @param s1 (required)
+     * @param t2 (required)
      * @return boolean
      */
-    public static boolean motTrouve(char[] m, char[][] dico) {
+    public static boolean eqStringTabChar(String s1, char[] t2){
+        if(s1.length() != t2.length)
+            return false;
+        for(int i=0;i<s1.length(); i++){
+            if(s1.charAt(i)!=t2[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Retourne true sur le mot est retrouvé dans le dictionnaire
+     *
+     * @param s1 (required)
+     * @param dico (required)
+     * @return boolean
+     */
+    public static boolean motTrouve(String  s1, char[][] dico) {
 
         for (int i = 0; i < dico.length; i++) {
-            if (eqTabChar(m, dico[i]) == true) {
+            if (eqStringTabChar(s1, dico[i])) {
                 return true;
             }
         }
         return false;
     }
 
-    
     public static void main(String[] args) {
-
         char[][] dico = getDictionnaire();
-        char[] str;
-        while(true) {
-        System.out.print("Proposer un mot ou une ligne vide pour passer : ");
-        str = Terminal.lireString().toUpperCase().toCharArray();
-        if(motTrouve(str, dico)==true){
-               System.out.println("Le mot est présent dans le dictionnaire");
-           }
-           else System.out.println("Le mot n'est pas présent dans le dictionnaire");
-       }
+        String jeu;
+        String tirage = donnerTirage().toString();
+
+        System.out.println("Tirage:" + tirage);
 
 
     }
