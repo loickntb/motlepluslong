@@ -139,6 +139,29 @@ public class game {
         }
         return false;
     }
+    public static boolean lettreCompteur(char[] jeu, char[] tirage){
+        for (int i = 0; i < tirage.length; i++) {
+            char c = tirage[i];
+            if (c != ' ') {
+                int tirageCount = 0;
+                int jeuCount = 0;
+                for (int j = 0; j < tirage.length; j++) {
+                    if (tirage[j] == c) {
+                        tirageCount++;
+                    }
+                }
+                for (int j = 0; j < jeu.length; j++) {
+                    if (jeu[j] == c) {
+                        jeuCount++;
+                    }
+                }
+                if (jeuCount > tirageCount) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     /**
      * Retourne true sur chaque lettre de jeu
      * est présent dans le tirage
@@ -173,10 +196,30 @@ public class game {
         System.out.print("Proposez un mot (ou une lige vide pour passer) : ");
         jeu = Terminal.lireString().toUpperCase().toCharArray();
         if( jeu.length==0) throw new IllegalArgumentException("Votre entrée est vide");
-        if(compareLettre(jeu,tirage)){
+        if(!lettreCompteur(jeu,tirage)) System.out.println("** Erreur : Ce mot contient des lettres qui apparaissent plus que dans le tirage ! **");
+        else if(compareLettre(jeu,tirage)){
+            System.out.println(jeu);
+            for (int i = 0; i < jeu.length; i++) {
+                char lettre = jeu[i];
+                for (int j = 0; j < tirage.length; j++) {
+                    if (tirage[j] == lettre) {
+                        System.out.print(j);
+                        break;
+                    }
+                }
+            }
+            System.out.print("\n");
+            for (int i = 0; i < tirage.length; i++){
+                System.out.print(i);
+            }
+            System.out.print("\n");
+            System.out.println(tirage);
 
-        }
-        else if(!compareLettre(jeu,tirage)){
+            if(motTrouve(jeu,dico)) System.out.println("Votre mot fait "+ jeu.length + " lettre");
+            else System.out.println("Votre mot n'est pas présent dans le dictionnaire");
+
+
+        }else if(!compareLettre(jeu,tirage)){
             System.out.print("** Erreur : Ce mot contient des lettres qui ne sont pas présentes dans le tirage ! **");
         }
 
