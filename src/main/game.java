@@ -1,7 +1,7 @@
 package src.main;
 import src.Terminal;
 
-public class main {
+public class game {
 
 
     public static char[] donnerTirage() {
@@ -126,26 +126,59 @@ public class main {
     /**
      * Retourne true sur le mot est retrouvé dans le dictionnaire
      *
-     * @param s1 (required)
+     * @param t1 (required)
      * @param dico (required)
      * @return boolean
      */
-    public static boolean motTrouve(String  s1, char[][] dico) {
+    public static boolean motTrouve(char[] t1, char[][] dico) {
 
         for (int i = 0; i < dico.length; i++) {
-            if (eqStringTabChar(s1, dico[i])) {
+            if (eqTabChar(t1, dico[i])) {
                 return true;
             }
         }
         return false;
     }
+    /**
+     * Retourne true sur chaque lettre de jeu
+     * est présent dans le tirage
+     * @param jeu (required)
+     * @param tirage (required)
+     * @return boolean
+     */
+    public static boolean compareLettre(char[] jeu,char[] tirage) {
+        for (int i = 0; i < jeu.length; i++) {
+            char c = jeu[i];
+            boolean match = false;
+            for (int j = 0; j < tirage.length; j++) {
+                if (tirage[j] == c) {
+                    match = true;
+                    break;
+                }
+            }
+            if (!match) {
+               return false;
+            }
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
         char[][] dico = getDictionnaire();
-        String jeu;
-        String tirage = donnerTirage().toString();
+        char[] jeu;
+        char[] tirage = donnerTirage();
 
-        System.out.println("Tirage:" + tirage);
+        System.out.println("Tirage:" + new String(tirage));
+        System.out.print("Proposez un mot (ou une lige vide pour passer) : ");
+        jeu = Terminal.lireString().toUpperCase().toCharArray();
+        if( jeu.length==0) throw new IllegalArgumentException("Votre entrée est vide");
+        if(compareLettre(jeu,tirage)){
+
+        }
+        else if(!compareLettre(jeu,tirage)){
+            System.out.print("** Erreur : Ce mot contient des lettres qui ne sont pas présentes dans le tirage ! **");
+        }
 
 
     }
