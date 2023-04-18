@@ -139,6 +139,14 @@ public class game {
         }
         return false;
     }
+
+    /**
+     * Retourne true si une lettre du tirage n'est
+     *  pas utilisée plus de fois qu'elle n'apparait
+     * @param jeu
+     * @param tirage
+     * @return
+     */
     public static boolean lettreCompteur(char[] jeu, char[] tirage){
         for (int i = 0; i < tirage.length; i++) {
             char c = tirage[i];
@@ -193,9 +201,9 @@ public class game {
         char[] tirage = donnerTirage();
 
         System.out.println("Tirage:" + new String(tirage));
-        System.out.print("Proposez un mot (ou une lige vide pour passer) : ");
+        System.out.print("Proposez un mot (ou une ligne vide pour passer) : ");
         jeu = Terminal.lireString().toUpperCase().toCharArray();
-        if( jeu.length==0) throw new IllegalArgumentException("Votre entrée est vide");
+        if( jeu.length>25) throw new IllegalArgumentException("Votre entrée dépasse la limite autorisée de 25 lettres");
         if(!lettreCompteur(jeu,tirage)) System.out.println("** Erreur : Ce mot contient des lettres qui apparaissent plus que dans le tirage ! **");
         else if(compareLettre(jeu,tirage)){
             System.out.println(jeu);
