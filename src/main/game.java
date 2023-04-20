@@ -196,41 +196,43 @@ public class game {
 
 
     public static void main(String[] args) {
-        char[][] dico = getDictionnaire();
-        char[] jeu;
-        char[] tirage = donnerTirage();
+        char c;
+        do {
+            char[][] dico = getDictionnaire();
+            char[] jeu;
+            char[] tirage = donnerTirage();
 
-        System.out.println("Tirage:" + new String(tirage));
-        System.out.print("Proposez un mot (ou une ligne vide pour passer) : ");
-        jeu = Terminal.lireString().toUpperCase().toCharArray();
-        if( jeu.length>25) throw new IllegalArgumentException("Votre entrée dépasse la limite autorisée de 25 lettres");
-        if(!lettreCompteur(jeu,tirage)) System.out.println("** Erreur : Ce mot contient des lettres qui apparaissent plus que dans le tirage ! **");
-        else if(compareLettre(jeu,tirage)){
-            System.out.println(jeu);
-            for (int i = 0; i < jeu.length; i++) {
-                char lettre = jeu[i];
-                for (int j = 0; j < tirage.length; j++) {
-                    if (tirage[j] == lettre) {
-                        System.out.print(j);
-                        break;
+            System.out.println("Tirage:" + new String(tirage));
+            System.out.print("Proposez un mot (ou une ligne vide pour passer) : ");
+            jeu = Terminal.lireString().toUpperCase().toCharArray();
+            if (jeu.length > 25)
+                throw new IllegalArgumentException("Votre entrée dépasse la limite autorisée de 25 lettres");
+            if (!lettreCompteur(jeu, tirage))
+                System.out.println("** Erreur : Ce mot contient des lettres qui apparaissent plus que dans le tirage ! **");
+            else if (compareLettre(jeu, tirage)) {
+                System.out.println(jeu);
+                for (int i = 0; i < jeu.length; i++) {
+                    char lettre = jeu[i];
+                    for (int j = 0; j < tirage.length; j++) {
+                        if (tirage[j] == lettre) {
+                            System.out.print(j);
+                            break;
+                        }
                     }
                 }
+                System.out.print("\n");
+                for (int i = 0; i < tirage.length; i++) {
+                    System.out.print(i);
+                }
+                System.out.print("\n");
+                System.out.println(tirage);
+                if (motTrouve(jeu, dico)) System.out.println("Votre mot fait " + jeu.length + " lettre"+ "\n" + "Votre mot est présent dans le dictionnaire");
+                else System.out.println("Votre mot n'est pas présent dans le dictionnaire");
+            } else if (!compareLettre(jeu, tirage)) {
+                System.out.print("** Erreur : Ce mot contient des lettres qui ne sont pas présentes dans le tirage ! **");
             }
-            System.out.print("\n");
-            for (int i = 0; i < tirage.length; i++){
-                System.out.print(i);
-            }
-            System.out.print("\n");
-            System.out.println(tirage);
-
-            if(motTrouve(jeu,dico)) System.out.println("Votre mot fait "+ jeu.length + " lettre");
-            else System.out.println("Votre mot n'est pas présent dans le dictionnaire");
-
-
-        }else if(!compareLettre(jeu,tirage)){
-            System.out.print("** Erreur : Ce mot contient des lettres qui ne sont pas présentes dans le tirage ! **");
-        }
-
-
+            System.out.print("Voulez-vous jouer encore ?(o/n) : ");
+             c = Terminal.lireChar();
+        }while (c =='o');
     }
 }
